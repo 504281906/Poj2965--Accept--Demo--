@@ -1,0 +1,54 @@
+﻿<Window x:Class="Poj2965.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Poj2965"
+        xmlns:con ="clr-namespace:Poj2965.Convert"
+        mc:Ignorable="d" x:Name="main" Background="LightPink"
+        Title="MainWindow" Height="500" Width="500">
+    <Window.Resources>
+        <con:ColorConverter x:Key="ColorConverter"/>
+
+        <Style x:Key="BtnStyle" TargetType="Button">
+            <Setter Property="MinWidth" Value="100"></Setter>
+            <Setter Property="MinHeight" Value="100"></Setter>
+            <Setter Property="Cursor" Value="Hand"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}"
+                                RecognizesAccessKey="True" TextElement.Foreground="{TemplateBinding Foreground}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter  Property="Opacity"  Value="0.4"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Width="450" Height="450">
+        <ItemsControl Name="bg" ItemsSource="{Binding ElementName=main,Path=GridList}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button x:Name="BtnGrid" Height="100" Width="100" Style="{StaticResource BtnStyle}" Margin="0,10,0,0" Click="BtnGrid_Click"
+                            Background="{Binding color,Converter={StaticResource ColorConverter},Mode=TwoWay}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate >
+                    <local:selPanel  Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+</Window>
